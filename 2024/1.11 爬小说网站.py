@@ -22,14 +22,14 @@ def get_urls():
 
 
 def download(url):
-    resp = requests.get('http://' + url, headers=headers)
+    resp = requests.get('http://www.12z.cn' + url, headers=headers)
     resp.encoding = 'gbk'
     html = etree.HTML(resp.text)
     download_url = html.xpath('//*[@id="djxz"]/div[2]/div[1]/div[1]/div[2]/ul/li[1]/a/@href')
     name = html.xpath('/html/body/div[5]/div/div[1]/div/div[1]/text()')
-    with open(f'{name}.zip', 'wb') as w:
-        w.write(requests.get('http://' + download_url, headers=headers).content)
-        print(f'成功下载文件{name}')
+    with open(f'{name[0]}.zip', 'wb') as w:
+        w.write(requests.get('http://www.12z.cn' + download_url[0], headers=headers).content)
+        print(f'成功下载文件{name[0]}')
 
 
 if __name__ == '__main__':
