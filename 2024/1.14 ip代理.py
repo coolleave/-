@@ -1,5 +1,6 @@
 import requests
 from lxml import etree
+from selenium import webdriver
 # 免费获取的代理ip 不一定都能用，因此我们要检验代理ip的可用性
 params = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
                         'AppleWebKit/537.36 (KHTML, like Gecko)Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0'}
@@ -52,9 +53,17 @@ def get_ip2():
             pass
 
 
+# 尝试第三种方法，selenium！
+def get_ip3():
+    url = 'https://www.kuaidaili.com/free/intr'
+    edge = webdriver.Edge()
+    edge.get(url)
+
+
 if __name__ == '__main__':
     lst_ip = []
     get_ip2()
     for i in lst_ip:
         print(i)
     # resp1 = requests.get('https://zhuanlan.zhihu.com/p/395461277', params=params)
+    # get_ip3()
