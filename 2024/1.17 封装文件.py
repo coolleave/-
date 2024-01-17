@@ -106,6 +106,7 @@ def novelchapters2(book_name):
             lst[i] = re.sub('\n\n\n', '\n\n', lst[i], flags=re.DOTALL)
             lst[i] = re.sub('\n\n', '', lst[i], flags=re.DOTALL)  # 去掉开头双换行符
             lst[i] = re.sub('\n', r'\\n', lst[i], flags=re.DOTALL)  # 把换行符替换成\n
+            lst[i] = re.sub(r'\s\s', r'', lst[i], flags=re.DOTALL)  # 把换行符替换成\n
             # print(lst[1])
             # worksheet.cell(row=i, column=1, value=lst[i])
             if lst[i] == '\\n' or lst[i].startswith('内容简介') or lst[i].startswith('\\n内容简介'):
@@ -115,7 +116,7 @@ def novelchapters2(book_name):
 
         # 保存表格
         # workbook.save('novelchapters.xlsx')
-        wb.save(f'{book_name}.xls')
+        wb.save(f'./excel/{book_name}.xls')
         print(f'{book_name} over!')
 
 
@@ -129,8 +130,11 @@ def handle_txt(folder_path):
 
 
 if __name__ == '__main__':
-    get_ip2()  # 拿到代理ip池
-    get_urls()  # 拿到并下载rar文件
-    unzips('./rar')  # 解压文件
+    # os.mkdir('rar')
+    # os.mkdir('txt')
+    # os.mkdir('excel')
+    # get_ip2()  # 拿到代理ip池
+    # get_urls()  # 拿到并下载rar文件
+    # unzips('./rar')  # 解压文件
     handle_txt('./txt')  # 处理小说章节， 并写入excel
 
