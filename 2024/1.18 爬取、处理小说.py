@@ -5,6 +5,7 @@ import random
 import os
 import re
 import xlwt
+from concurrent.futures import ThreadPoolExecutor
 
 
 # 准备ua
@@ -49,7 +50,7 @@ def check_proxy(proxy):
 
 # 从主页找到所有的下载链接
 def get_urls():
-    for a in range(3):
+    for a in range(3, 7):
         url = f'http://www.12z.cn/book/wuxiaxianxia/list_13_{a}.html'
         # 发送GET请求获取页面内容，从代理池中使用随机ip
         resp = requests.get(url, headers=headers, proxies=random.choice(lst_ip))
@@ -62,13 +63,14 @@ def get_urls():
         divs = html.xpath('/html/body/div[5]/div[2]/div[3]/div/div[1]/div')
         # print(urls)
         # 遍历所有的单元div
-        for div in divs:
-            # 找到进入小说详情页的href
-            href = div.xpath('./div[1]/div[2]/div[1]/a/@href')
-            download(href[0])
+        with ThreadPoolExecutor(8) as t:
+            for div in divs:
+                # 找到进入小说详情页的href
+                href = div.xpath('./div[1]/div[2]/div[1]/a/@href')
+                t.submit(download, href[0])
 
 
-# 下载单个zip文件
+# 下载单个rar文件
 def download(url):
     resp = requests.get('http://www.12z.cn' + url, headers=headers, proxies=random.choice(lst_ip))  # 发送请求
     resp.encoding = 'gbk'  # 处理编码
@@ -134,11 +136,11 @@ def handle_txt(folder_path):
 
 
 if __name__ == '__main__':
-    os.mkdir('rar')
-    os.mkdir('txt')
-    os.mkdir('excel')
+    # os.mkdir('rar')
+    # os.mkdir('txt')
+    # os.mkdir('excel')
     get_ip2()  # 拿到代理ip池
+    # print(lst_ip)
     get_urls()  # 拿到并下载rar文件
-    unzips('./rar')  # 解压文件
-    handle_txt('./txt')  # 处理小说章节， 并写入excel
-
+    # unzips('./rar')  # 解压文件
+    # handle_txt('./txt')  # 处理小说章节， 并写入excel
