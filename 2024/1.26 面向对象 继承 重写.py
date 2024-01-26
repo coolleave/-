@@ -36,23 +36,70 @@ def test1():
 def test2():
     # define  baseclass
     class Animal:
+        def __init__(self, name):
+            print(name)
+
         def sound(self):
             print('animal makes sound')
 
     # define subclass
     class Dog(Animal):
+        # override method of __init__
+        def __init__(self, name, sex):
+            # use function of super()
+            super().__init__(name)
+            self.sex = sex
+            print(name, sex)
         # override method sound
+
         def sound(self):
+            # uncompleted overide
+            Animal.sound(self)  # call sub's method after calling baseclass'method
             print('dog makes sound')
 
     # create instances
-    a = Animal()
-    d = Dog()
+    a = Animal('baseclass')
+    d = Dog('subclass', 'm')
 
     # call the method
     a.sound()  # animal makes sound
-    d.sound()  # dog makes sound
+    d.sound()  # animal makes sound \n dog makes sound
+
+
+def test3():
+
+    # Multiple inheritance 多继承
+    class Spiritbase:
+        def fight(self):
+            print('原神在打架')
+        pass
+
+    class Spirit(Spiritbase):
+        def fight(self):
+            print('神仙在打架')
+        pass
+
+    class Monkeybase:
+        def fight(self):
+            print('猿猴在打架')
+
+    class Monkey(Monkeybase):
+        def fight(self):
+            print('猴子在打架')
+        pass
+
+        def eat(self):
+            print('猴子在吃')
+
+    # mult inheritance
+    class Monkeyking(Spirit, Monkey):
+        def __init__(self):
+            pass
+
+    monkey = Monkeyking()
+    monkey.fight()
+    print(Monkeyking.mro())  # 打印多继承顺序 print the order of mult inheritance
 
 
 if __name__ == '__main__':
-    test2()
+    test3()
