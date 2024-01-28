@@ -43,7 +43,7 @@ class Class:
         pass
 
     def check_information(self):
-        print('班级编号', self.class_num, '课程', self.course_obj, '所属分校', self.branchschool)
+        print('班级编号', self.class_num, '课程', self.course_obj, '所属分校', self.branchschool.name)
 
 
 # 创建课程类
