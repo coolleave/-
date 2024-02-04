@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QVBoxLayout, QWidget, QPushButton, QHBoxLayout
-from PyQt5.QtWidgets import QRadioButton, QGroupBox
+from PyQt5.QtWidgets import QRadioButton, QGroupBox, QLineEdit, QGridLayout
 
 
 # 面向对象编程
@@ -115,5 +115,50 @@ def test3():
     app.exec()
 
 
+# 九宫格布局 模拟计算器界面
+def test4():
+    class Window(QWidget):
+        def __init__(self):
+            super().__init__()
+            self.init_ui()
+
+        def init_ui(self):
+            # 准备数据
+            data = {
+                0: ["7", "8", "9", "+", "("],
+                1: ["4", "5", "6", "-", ")"],
+                2: ["1", "2", "3", "*", "<-"],
+                3: ["0", ".", "=", "/", "C"]
+            }
+            # 准备总体垂直布局器
+            v_layout = QVBoxLayout()
+
+            # 创建文本框
+            edit = QLineEdit()
+            # 占位内容，可写可不写
+            edit.setPlaceholderText('请输入内容')
+            v_layout.addWidget(edit)
+
+            # 创建九宫格
+            # 网格布局
+            grid = QGridLayout()
+            # 循环查找， key就是行数
+            for line, values in data.items():
+                # 遍历列表
+                for value in values:
+                    # 将每个列表中的值设置成按钮
+                    btn = QPushButton(value)
+                    # 列表的索引就是列数 key是行数
+                    grid.addWidget(btn, line, values.index(value))
+
+            v_layout.addLayout(grid)
+            # 使用布局器
+            self.setLayout(v_layout)
+
+    app = QApplication(sys.argv)
+    w = Window()
+    w.show()
+    app.exec()
+
 if __name__ == '__main__':
-    test3()
+    test4()
