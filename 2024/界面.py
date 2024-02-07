@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QTe
 class ChatDialog(QWidget):
     def __init__(self):
         super().__init__()
-
+        self.resize(600, 400)
         # 初始化ui界面
         self.file_button = QPushButton("选择文件")  # 创建上传文件按钮控件
         # 绑定按钮点击信号和槽函数
@@ -25,6 +25,7 @@ class ChatDialog(QWidget):
 
         # 绑定发送按钮信号和槽函数
         self.send_button.clicked.connect(self.handle_send_message)
+        self.input_box.returnPressed.connect(self.handle_send_message)
         input_layout.addWidget(self.input_box)  # 添加输入框
         input_layout.addWidget(self.send_button)  # 添加发送按钮
 
@@ -47,7 +48,7 @@ class ChatDialog(QWidget):
         # 清除输入信息
         self.input_box.clear()
         # 展示‘我’ 发送的信息
-        self.display_message("我: " + message)
+        self.display_message(("我: " + message).rjust(93 - len(message)))  # 设置右对齐
         # 展示 系统回复的信息
         response = self.get_response(message)
         self.display_message("AI: " + response)
