@@ -76,8 +76,13 @@ class ChatDialog(QWidget):
 
 
 if __name__ == '__main__':
-    app = QApplication([])
+    # app = QApplication([])
+    #
+    # dialog = ChatDialog()
+    # dialog.show()
+    # app.exec_()
+    from PyQt5 import uic
 
-    dialog = ChatDialog()
-    dialog.show()
-    app.exec_()
+    # 将.ui文件转换为.py文件
+    with open("2.10_1.py", "w", encoding="utf-8") as py_file:
+        uic.compileUi("2.10界面.ui", py_file)
