@@ -48,7 +48,7 @@ class Ui_Form(QWidget):
         self.container.addWidget(self.textEdit)
 
         # 设置水平容器容纳两个按钮和输入框
-        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.h_layout = QtWidgets.QHBoxLayout()
 
         self.btn_load = QtWidgets.QPushButton(self.widget)
         self.btn_load.setStyleSheet("background-color: white;\n"
@@ -62,7 +62,7 @@ class Ui_Form(QWidget):
                                     "    text-decoration: none;\n"
                                     "    qproperty-icon: url(:/images/icon.png);")
 
-        self.horizontalLayout.addWidget(self.btn_load)
+        self.h_layout.addWidget(self.btn_load)
 
         # 创建输入框
         self.lineEdit = QtWidgets.QLineEdit(self.widget)
@@ -77,7 +77,7 @@ class Ui_Form(QWidget):
                                     "    text-decoration: none;\n"
                                     "    qproperty-icon: url(:/images/icon.png);")
 
-        self.horizontalLayout.addWidget(self.lineEdit)
+        self.h_layout.addWidget(self.lineEdit)
         self.btn_send = QtWidgets.QPushButton()
         self.btn_send.setStyleSheet("background-color: white;\n"
                                       "    color: black;\n"
@@ -89,9 +89,11 @@ class Ui_Form(QWidget):
                                       "    text-align: center;\n"
                                       "    text-decoration: none;\n"
                                       "    qproperty-icon: url(:/images/icon.png);")
-        self.btn_send.setObjectName("pushButton")
-        self.horizontalLayout.addWidget(self.btn_send)
-        self.container.addLayout(self.horizontalLayout)
+
+        # 水平布局器中添加发送按钮
+        self.h_layout.addWidget(self.btn_send)
+        # 将水平布局器添加到容器中
+        self.container.addLayout(self.h_layout)
 
         self.retranslateUi(form)
         QtCore.QMetaObject.connectSlotsByName(form)
