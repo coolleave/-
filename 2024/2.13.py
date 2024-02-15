@@ -2,9 +2,8 @@ import json
 import time
 import sys
 
-from PyQt5 import QtCore, QtWidgets
 from PyQt5.Qt import QThread, pyqtSignal
-from PyQt5.QtWidgets import QWidget, QApplication
+from PyQt5.QtWidgets import QWidget, QApplication, QLineEdit
 from PyQt5 import uic
 import requests
 
@@ -26,6 +25,10 @@ class MyWindow(QWidget):
         self.forget_password_btn = self.ui.btn  # 忘记密码按钮
         self.textBrowser = self.ui.textEdit  # 文本显示区域
 
+        # 设置密码不可见性
+        self.password.setEchoMode(QLineEdit.Password)
+        self.password.setStyleSheet("font-size: 9px; color: black;")  # 设置输入的大小
+
         # 绑定信号与槽函数
         self.login_btn.clicked.connect(self.login_btn_click)
 
@@ -41,6 +44,8 @@ class MyWindow(QWidget):
         self.log_thread.signal.emit(json.dumps(dic))
         # print(type(json.dump({'name': name, 'password': password})))
 
+    def dispaly_loginmsg(self, msg):
+        self.textBrowser.setText(msg)  # 展示登录信息
 
 class Login_Thread(QThread):
     signal = pyqtSignal(str)
@@ -50,18 +55,20 @@ class Login_Thread(QThread):
 
     def run(self):
         while True:
-            print('子线程正在执行')
+            # print('子线程正在执行')
             time.sleep(1)
 
     def login_request(self, ua_pw):
+        # 将字符串转换为json
         ua_pw_json = json.loads(ua_pw)
-        username = ua_pw_json.get('name')
-        password = ua_pw_json.get('password')
-        # print(username, password)
-        print(ua_pw_json)
         resp = requests.post(url='https://service-2yxjqwel-1324305345.bj.tencentapigw.com.cn/release/qt_login', json=ua_pw_json)
-        # text = resp.content.decode = 'utf-8'
-        print(resp.content.decode('unicode_escape'))
+        resp = resp.content.decode('unicode_escape')  # 解码处理响应
+        # 转换为json格式
+        resp_json = json.loads(resp)
+        # print(resp_json)
+        msg = resp_json.get('errmsg')  # 获取返回信息
+        w.dispaly_loginmsg(msg)  # 调用显示方法
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
@@ -71,4 +78,3 @@ if __name__ == '__main__':
     w.ui.show()
 
     app.exec()
-
