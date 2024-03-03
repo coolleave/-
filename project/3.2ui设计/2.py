@@ -49,12 +49,12 @@ class Window(QWidget):
 
         # 创建按钮区域
         hbox_button = QHBoxLayout()
-        button1 = QPushButton('模型', self)
-        button2 = QPushButton('运行', self)
-        button1.setFixedHeight(30)
-        button2.setFixedHeight(30)
+        button1 = QPushButton('run', self)
+        button2 = QPushButton('model', self)
         button1.setFont(QFont('Arial', 18))
         button2.setFont(QFont('Arial', 18))
+        button1.setFixedHeight(30)
+        button2.setFixedHeight(30)
         hbox_button.addWidget(button1)
         hbox_button.addWidget(button2)
 

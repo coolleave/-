@@ -19,7 +19,7 @@ class Window(QWidget):
 
         # 创建标题
         hbox_title = QHBoxLayout()
-        title = QLabel('多层次情感分类系统', self)
+        title = QLabel('Emotion recognition', self)
         font_title = QFont('Arial', 30)  # 创建一个字体对象，设置字体为 Arial，大小为 16
         title.setFont(font_title)
         title.adjustSize()  # 调整 Label 的大小以适应文本内容
@@ -29,10 +29,11 @@ class Window(QWidget):
 
         # 创建提示文本
         hbox_tip = QHBoxLayout()
-        tip = QLabel('选择你要运行的数据集：', self)
+        tip = QLabel('Please select input data：', self)
         tip.move(10, 100)
         font_tip = QFont('Arial', 18)
         tip.setFont(font_tip)
+        hbox_tip.addStretch(1)
         hbox_tip.addWidget(tip)
         hbox_tip.addStretch(1)
 
@@ -49,12 +50,12 @@ class Window(QWidget):
 
         # 创建按钮区域
         hbox_button = QHBoxLayout()
-        button1 = QPushButton('模型', self)
-        button2 = QPushButton('运行', self)
-        button1.setFixedHeight(30)
-        button2.setFixedHeight(30)
+        button1 = QPushButton('run', self)
+        button2 = QPushButton('model', self)
         button1.setFont(QFont('Arial', 18))
         button2.setFont(QFont('Arial', 18))
+        button1.setFixedHeight(30)
+        button2.setFixedHeight(30)
         hbox_button.addWidget(button1)
         hbox_button.addWidget(button2)
 
