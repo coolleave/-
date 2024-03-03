@@ -41,20 +41,24 @@ class Window(QWidget):
         button_load = QPushButton('...', self)
         button_load.clicked.connect(self.upload_file)
         text_input = QLineEdit()
+        text_input.setFixedHeight(25)
+        button_load.setFixedHeight(25)
         hbox_load.addWidget(text_input)
         hbox_load.addWidget(button_load)
-
 
         # 创建按钮区域
         hbox_button = QHBoxLayout()
         button1 = QPushButton('模型', self)
         button2 = QPushButton('运行', self)
+        button1.setFixedHeight(30)
+        button2.setFixedHeight(30)
         hbox_button.addWidget(button1)
         hbox_button.addWidget(button2)
 
         # 创建文本显示区域
         text_ouput = QTextEdit()
 
+        # 把布局器添加到容器
         container.addLayout(hbox_title)
         container.addLayout(hbox_tip)
         container.addLayout(hbox_load)
