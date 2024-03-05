@@ -105,8 +105,7 @@ def test3():
             # 把两个容器组作为控件widget添加到外层中
             container.addWidget(hobby)
             container.addWidget(gender)
-            # 创建外层垂直布局器
-            wrap_layout = QVBoxLayout()
+
             self.setLayout(container)
 
     app = QApplication(sys.argv)
@@ -123,6 +122,7 @@ def test4():
             self.init_ui()
 
         def init_ui(self):
+            self.setWindowTitle('计算器')
             # 准备数据
             data = {
                 0: ["7", "8", "9", "+", "("],
@@ -159,6 +159,7 @@ def test4():
     w = Window()
     w.show()
     app.exec()
+
 
 if __name__ == '__main__':
     test4()
