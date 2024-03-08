@@ -64,7 +64,9 @@ def test3():
         chatbot.like(print_like_dislike, None, None)
 
     demo.queue()
-    demo.launch()
+
+    demo.launch(share=True)
+
 
 if __name__ == '__main__':
     test3()
