@@ -45,4 +45,5 @@ demo = gr.ChatInterface(
 )
 
 if __name__ == "__main__":
+    gr.close_all()
     demo.launch(debug=True, show_error=True)
